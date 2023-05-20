@@ -1,0 +1,12 @@
+# ninja log v5
+1	50	1684605025755788083	build.ninja	6753a7c874335d31
+530	571	1684604800654492179	cvrp_SolutionChecker	6d7af8c3687d43ea
+6	469	1684604800550002925	CMakeFiles/cvrp_SolutionChecker.dir/source/solution_checker.cpp.o	9e85fe8694fbdf54
+0	325	1684592220989319716	CMakeFiles/cvrp_SolutionChecker.dir/solution_checker.cpp.o	d06798803cbabfbc
+6	122	1684604800203105906	CMakeFiles/cvrp_SolutionChecker.dir/source/VrpData.cpp.o	d278cac05dce2ba0
+7	530	1684604800611584177	CMakeFiles/cvrp_SolutionChecker.dir/source/SolData.cpp.o	7c0108184d415429
+6	348	1684604800429607316	CMakeFiles/cvrp_SolutionChecker.dir/source/FileLoader.cpp.o	86238485e641a558
+5	29	1684605027349007201	CMakeFiles/cvrp_SolutionChecker.dir/source/VrpData.cpp.o	bfef192e41d1fbdd
+4	388	1684605027706709853	CMakeFiles/cvrp_SolutionChecker.dir/source/solution_checker.cpp.o	ef226f5195bd76fe
+5	468	1684605027786409744	CMakeFiles/cvrp_SolutionChecker.dir/source/SolData.cpp.o	ea85e193c63ad26c
+468	511	1684605027832314596	cvrp_SolutionChecker	2fbdc9ecd81ba88a
