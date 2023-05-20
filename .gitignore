@@ -30,3 +30,20 @@
 *.exe
 *.out
 *.app
+
+# Temporary files
+*~
+.nfs*
+
+# build directory
+[Bb]uild
+
+# cmake
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CMakeFiles
+cmake_out
+
+# MacOS
+.DS_Store
