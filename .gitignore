@@ -45,5 +45,8 @@ Makefile
 CMakeFiles
 cmake_out
 
+# Data
+[Dd]ata
+
 # MacOS
 .DS_Store
