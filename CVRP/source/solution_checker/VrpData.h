@@ -16,6 +16,9 @@ public:
     VrpData(std::string const& filePath);
 
     // getters
+    int GetVehicleCapacity();
+    int GetDemandForTour(std::vector<int> customers);
+    LocationNode GetLocation(int id);
 
 private:
     // members

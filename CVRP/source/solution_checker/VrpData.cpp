@@ -82,3 +82,13 @@ void VrpData::ReadData(const std::string &filePath)
         }
     }
 }
+
+LocationNode VrpData::GetLocation(int id)
+{
+   return  locations.at(id);
+}
+
+int VrpData::GetVehicleCapacity()
+{
+    return vehicleCapacity;
+}
