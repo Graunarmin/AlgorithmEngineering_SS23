@@ -10,16 +10,16 @@ VrpData::VrpData(const std::string &filePath)
 
 void VrpData::ReadData(const std::string &filePath)
 {
-    std::ifstream solFile;
+    std::ifstream vrpFile;
     std::string line;
 
-    solFile.open(filePath);
+    vrpFile.open(filePath);
 
-    if(solFile.is_open())
+    if(vrpFile.is_open())
     {
         int section = 0;
         // Read in the file line by line:
-        while(std::getline(solFile,line))
+        while(std::getline(vrpFile,line))
         {
             std::stringstream ss;
             std::string word;
@@ -34,6 +34,7 @@ void VrpData::ReadData(const std::string &filePath)
             }
 
             std::string keyword = tokens.at(0);
+            std::cout << keyword << std::endl;
 
             if(keyword == "DIMENSION")
             {
@@ -50,7 +51,7 @@ void VrpData::ReadData(const std::string &filePath)
                 section = 2;
                 continue;
             }
-            else if(keyword == "DEMANDS")
+            else if(keyword == "DEMAND_SECTION")
             {
                 section = 3;
                 continue;
