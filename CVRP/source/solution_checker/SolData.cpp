@@ -4,7 +4,7 @@
 SolData::SolData(std::string const& filePath){
 
     ReadData(filePath);
-    std::cout << "Valid File, Costs are " << totalCost;
+    std::cout << "Valid File, Costs are " << totalCost << std::endl;
 
 }
 

@@ -44,6 +44,7 @@ cmake_install.cmake
 Makefile
 CMakeFiles
 cmake_out
+cmake-build-debug
 
 # Data
 [Dd]ata

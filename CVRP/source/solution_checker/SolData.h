@@ -11,13 +11,10 @@
 class SolData{
 
 public:
-    SolData();
-    SolData(std::string const& filePath);
+    explicit SolData(std::string const& filePath);
 
     // Getters
 
-
-    // Setters
 
 private:
     // members
