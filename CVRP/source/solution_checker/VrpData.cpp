@@ -5,7 +5,7 @@ VrpData::VrpData(const std::string &filePath)
     vehicleCapacity = 0;
     dimension = 0;
     ReadData(filePath);
-    std::cout << "Valid File, Vehicle Capacity is " << vehicleCapacity << std::endl;
+    std::cout << "Vrp File is valid, Vehicle Capacity is " << vehicleCapacity << std::endl;
 }
 
 void VrpData::ReadData(const std::string &filePath)
@@ -34,7 +34,7 @@ void VrpData::ReadData(const std::string &filePath)
             }
 
             std::string keyword = tokens.at(0);
-            std::cout << keyword << std::endl;
+            //std::cout << keyword << std::endl;
 
             if(keyword == "DIMENSION")
             {
@@ -71,24 +71,26 @@ void VrpData::ReadData(const std::string &filePath)
                 int id = std::stoi(keyword);
                 int x = std::stoi(tokens.at(1));
                 int y = std::stoi(tokens.at(2));
-                locations.insert({id, LocationNode(id, x, y)});
+                locs.AddLocation(LocationNode(id, x, y));
+                //locations.insert({id, LocationNode(id, x, y)});
             }
             else if(section == 3)
             {
                 int id = std::stoi(keyword);
                 int demand = std::stoi(tokens.at(1));
-                locations.at(id).SetDemand(demand);
+                locs.AddDemandToLocation(id, demand);
+                //locations.at(id).SetDemand(demand);
             }
         }
     }
 }
 
-LocationNode VrpData::GetLocation(int id)
-{
-   return  locations.at(id);
-}
-
 int VrpData::GetVehicleCapacity()
 {
     return vehicleCapacity;
+}
+
+LocationsContainer VrpData::GetLocations()
+{
+    return locs;
 }

@@ -1,11 +1,14 @@
 #include "LocationNode.h"
 
-LocationNode::LocationNode() {}
+LocationNode::LocationNode() = default;
 
 LocationNode::LocationNode(int ID, int demand)
 {
     locationID = ID;
     locationDemand = demand;
+    xCoord = 0;
+    yCoord = 0;
+    visited = 0;
 }
 
 LocationNode::LocationNode(int ID, int x, int y)
@@ -13,6 +16,8 @@ LocationNode::LocationNode(int ID, int x, int y)
     locationID = ID;
     xCoord = x;
     yCoord = y;
+    locationDemand = 0;
+    visited = 0;
 }
 
 LocationNode::LocationNode(int ID, int x, int y, int demand)
@@ -21,6 +26,7 @@ LocationNode::LocationNode(int ID, int x, int y, int demand)
     xCoord = x;
     yCoord = y;
     locationDemand = demand;
+    visited = 0;
 }
 
 int LocationNode::GetID() const
@@ -43,6 +49,11 @@ int LocationNode::GetY() const
     return yCoord;
 }
 
+int LocationNode::TimesVisited()
+{
+    return visited;
+}
+
 void LocationNode::SetDemand(int demand)
 {
     locationDemand = demand;
@@ -52,5 +63,10 @@ void LocationNode::SetCoordinates(int x, int y)
 {
     xCoord = x;
     yCoord = y;
+}
+
+void LocationNode::Visit()
+{
+    visited += 1;
 }
 

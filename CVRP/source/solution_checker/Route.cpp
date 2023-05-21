@@ -1,35 +1,37 @@
 #include "Route.h"
-#include "MathUtil.h"
 
-#include <utility>
+Route::Route() = default;
 
-Route::Route(const std::vector<int>& customers, VrpData vrp)
+Route::Route(int distance, int demand, int id)
 {
-    LocationNode depot = vrp.GetLocation(1);
-    AddLocationToRoute(depot);
-    for(int id : customers)
+    ID = id;
+    totalCost = distance;
+    totalDemand = demand;
+}
+
+int Route::GetID() const
+{
+    return ID;
+}
+
+int Route::GetTotalDistance() const
+{
+    return totalCost;
+}
+
+int Route::GetTotalDemand() const
+{
+    return totalDemand;
+}
+
+bool Route::DemandIsInCapacity(int capacity) const
+{
+    if(totalDemand > capacity)
     {
-        AddLocationToRoute(vrp.GetLocation(id+1));
+        std::cout << "Demand on Tour " << ID << " is bigger than vehicle capacity of "
+                  << capacity <<". Invalid Solution!" << std::endl;
+        return false;
     }
-    AddLocationToRoute(depot);
+    return true;
 }
 
-int Route::GetTotalDistance()
-{
-    int totalDistance = 0;
-    for(int i = 0; i < routeNodes.size()-1; ++i)
-    {
-        int x1 = routeNodes.at(i).GetX();
-        int y1 = routeNodes.at(i).GetY();
-
-        int x2 = routeNodes.at(i+1).GetX();
-        int y2 = routeNodes.at(i+1).GetY();
-
-        totalDistance += MathUtil::DistanceBetweenTwoPoints(x1,y1,x2,y2);
-    }
-}
-
-void Route::AddLocationToRoute(LocationNode location)
-{
-    routeNodes.push_back(location);
-}

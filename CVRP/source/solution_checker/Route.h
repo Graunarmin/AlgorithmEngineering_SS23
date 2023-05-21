@@ -2,22 +2,24 @@
 #define CVRP_ROUTE_H
 
 #include <vector>
-#include "LocationNode.h"
-#include "VrpData.h"
+#include <iostream>
 
 class Route{
 public:
     // constructors
-    Route(const std::vector<int>& customers, VrpData vrp);
+    Route();
+    Route(int distance, int demand, int id);
 
     // getters
-    int GetTotalDistance();
-    int GetTotalDemand();
+    int GetID() const;
+    int GetTotalDistance() const;
+    int GetTotalDemand() const;
+    bool DemandIsInCapacity(int capacity) const;
 
 private:
-    std::vector<LocationNode> routeNodes;
-
-    void AddLocationToRoute(LocationNode location);
+    int ID;
+    int totalCost;
+    int totalDemand;
 };
 
 #endif //CVRP_ROUTE_H

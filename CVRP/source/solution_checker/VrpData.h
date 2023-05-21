@@ -2,13 +2,12 @@
 #define CVRP_VRPDATA_H
 
 #include <string>
-#include <array>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <map>
 #include "LocationNode.h"
+#include "LocationsContainer.h"
 
 class VrpData{
 public:
@@ -17,12 +16,12 @@ public:
 
     // getters
     int GetVehicleCapacity();
-    int GetDemandForTour(std::vector<int> customers);
-    LocationNode GetLocation(int id);
+    LocationsContainer GetLocations();
 
 private:
     // members
-    std::map<int, LocationNode> locations;
+    LocationsContainer locs;
+    //std::map<int, LocationNode> locations;
     int vehicleCapacity;
     int dimension;
 

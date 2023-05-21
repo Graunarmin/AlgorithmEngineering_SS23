@@ -10,10 +10,11 @@ int main(int argc, char* argv[]) {
     std::string solPath = argv[2];
 
     VrpData vrp = VrpData(vrpPath);
-    SolData solution = SolData(solPath);
+    SolData solution = SolData(solPath, vrp);
 
-    //check if the sum of all demands on a route is smaller than the vehicle capacity:
-
-
+    if(!solution.IsValidFile())
+    {
+        exit(0);
+    }
     return 0;
 }
