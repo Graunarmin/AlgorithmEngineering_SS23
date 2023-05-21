@@ -13,8 +13,8 @@ public:
 
     // getter
     int GetID() const;
-    int GetX() const;
-    int GetY() const;
+    int X() const;
+    int Y() const;
     int GetDemand() const;
     int TimesVisited();
 

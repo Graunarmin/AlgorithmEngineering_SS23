@@ -16,12 +16,16 @@ public:
     Route CreateRoute(const std::vector<int>& locationIDs, int ID);
     LocationNode GetDepot();
     void AddDemandToLocation(int locID, int demand);
-    static int GetDistanceBetweenLocations(const LocationNode& loc1, const LocationNode& loc2);
+    static int LocationDistance(const LocationNode& loc1, const LocationNode& loc2);
 
     bool CheckVisitedOnce();
 
+    void CreateDistanceMatrix();
+    std::vector<std::vector<int>> DistanceMatrix();
+
 private:
-    std::vector<LocationNode> locations;
+    std::vector<LocationNode> _locations;
+    std::vector<std::vector<int>> _distanceMatrix;
 };
 
 #endif //CVRP_LOCATIONSCONTAINER_H

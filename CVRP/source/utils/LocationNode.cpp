@@ -39,12 +39,12 @@ int LocationNode::GetDemand() const
     return locationDemand;
 }
 
-int LocationNode::GetX() const
+int LocationNode::X() const
 {
     return xCoord;
 }
 
-int LocationNode::GetY() const
+int LocationNode::Y() const
 {
     return yCoord;
 }
