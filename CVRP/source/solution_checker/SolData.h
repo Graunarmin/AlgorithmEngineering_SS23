@@ -7,27 +7,16 @@
 #include <sstream>
 #include <map>
 #include <vector>
-#include "Route.h"
+#include "../utils/Route.h"
+#include "../utils/Solution.h"
 #include "VrpData.h"
 
 class SolData{
 
 public:
-    SolData(std::string const& filePath, VrpData vrp);
+    SolData();
 
-    bool IsValidFile();
-
-private:
-    // members
-    std::vector<Route> routesData;
-    std::map<int, std::vector<int>> routes;
-    int solCost;
-    bool fileIsValid = true;
-
-    // functions
-    bool ReadData(std::string const& filePath, VrpData vrp);
-    bool TotalCostsMatch();
-    bool CheckCapacityBound(int capacity);
+    Solution ReadData(std::string const& filePath, Problem& prbl);
 
 };
 

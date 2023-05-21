@@ -6,27 +6,16 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "LocationNode.h"
-#include "LocationsContainer.h"
+#include "../utils/LocationNode.h"
+#include "../utils/LocationsContainer.h"
+#include "../utils/Problem.h"
 
 class VrpData{
 public:
-    // constructors
-    VrpData(std::string const& filePath);
+    VrpData();
 
-    // getters
-    int GetVehicleCapacity();
-    LocationsContainer GetLocations();
+    Problem ReadData(std::string const& filePath);
 
-private:
-    // members
-    LocationsContainer locs;
-    //std::map<int, LocationNode> locations;
-    int vehicleCapacity;
-    int dimension;
-
-    // functions
-    void ReadData(std::string const& filePath);
 };
 
 #endif //CVRP_VRPDATA_H

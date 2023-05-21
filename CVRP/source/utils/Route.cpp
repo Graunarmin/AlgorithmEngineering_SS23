@@ -28,8 +28,7 @@ bool Route::DemandIsInCapacity(int capacity) const
 {
     if(totalDemand > capacity)
     {
-        std::cout << "Demand on Tour " << ID << " is bigger than vehicle capacity of "
-                  << capacity <<". Invalid Solution!" << std::endl;
+        std::cout << "Demand on Tour " << ID << " is bigger than vehicle capacity of " << capacity << std::endl;
         return false;
     }
     return true;

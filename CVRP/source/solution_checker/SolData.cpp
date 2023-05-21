@@ -1,18 +1,14 @@
 #include "SolData.h"
 
-#include <utility>
 
+SolData::SolData() = default;
 
-SolData::SolData(std::string const& filePath, VrpData vrp)
-{
-    solCost = 0;
-    ReadData(filePath, std::move(vrp));
-}
-
-bool SolData::ReadData(const std::string &filePath, VrpData vrp){
+Solution SolData::ReadData(const std::string &filePath, Problem& prbl){
     std::ifstream solFile;
     std::string line;
-    LocationsContainer locations = vrp.GetLocations();
+    int solFileCosts;
+    std::vector<Route> routes;
+    LocationsContainer locations = prbl.Locations();
 
     solFile.open(filePath);
 
@@ -24,6 +20,7 @@ bool SolData::ReadData(const std::string &filePath, VrpData vrp){
             std::stringstream ss;
             std::string word;
             std::vector<std::string> tokens;
+
 
             ss << line;
 
@@ -39,99 +36,44 @@ bool SolData::ReadData(const std::string &filePath, VrpData vrp){
             if(keyword == "Route")
             {
                 // Route #1: 31 46 35
-                // Die ID der Route ist die Nummer an Position 1
+                // Route-ID is the number at pos 1
                 std::string routeID = tokens.at(1);
-                // Aber den # brauchen wir nicht
+
+                // we don't need the "#"
                 routeID.erase(remove(routeID.begin(), routeID.end(), '#'), routeID.end());
 
                 std::vector<int> customers;
-                // Ab Position 2 beginnen die IDs der Customer, die auf der Route besucht werden
+
+                // Customer-IDs start from pos 2
                 for(int i = 2; i < tokens.size(); ++i)
                 {
-                    // die ID der Customer um 1 erhöhen, um die ID im vrp-file zu matchen
+                    // increase Customer-ID by one to match location-IDs from vrp-file
                     customers.push_back(std::stoi(tokens.at(i))+1);
                 }
 
-                // customer IDs in locations suchen
+                // search for customer IDs in locations
                 Route route = locations.CreateRoute(customers, std::stoi(routeID));
-                routesData.push_back(route);
-                //routes.insert({std::stoi(routeID), customers});
+                routes.push_back(route);
                 customers.clear();
 
             }
             else if(keyword == "Cost")
             {
                 // Cost 27591
-                solCost = std::stoi(tokens.at(1));
+                solFileCosts = std::stoi(tokens.at(1));
             }
             else
             {
                 std::cout << tokens.at(0) << " is not a valid keyword, file not accepted.";
-                fileIsValid = false;
-                return false;
             }
             tokens.clear();
         }
-        // Check if Total Costs are Correct
-        if(!TotalCostsMatch())
-        {
-            //fileIsValid = false;
-            //return false;
-        }
+        std::cout << "Solution File is VALID." << std::endl;
 
-        // Check if all Customers where visited exactly once
-        if(!locations.CheckVisitedOnce())
-        {
-            fileIsValid = false;
-            return false;
-        }
-
-        if(!CheckCapacityBound(vrp.GetVehicleCapacity()))
-        {
-            fileIsValid = false;
-            return false;
-        }
-
-        std::cout << "Solution File is VALID " << std::endl;
-        return true;
+        Solution solution{routes, locations, solFileCosts};
+        return solution;
     }
     std::cout << "File could not be opened." << std::endl;
-    return false;
+    Solution solution{};
+    return solution;
 }
-
-bool SolData::TotalCostsMatch()
-{
-    int totalDistance = 0;
-    for(Route route : routesData)
-    {
-        totalDistance += route.GetTotalDistance();
-    }
-
-    if(solCost != totalDistance)
-    {
-        std::cout << "The solution-costs of " << solCost << " for the Tour do not match the calculated costs of "
-                << totalDistance << " (but this is probably due to our rounding or calculation)." << std::endl;
-        return false;
-    }
-    std::cout << "The solution-costs of " << solCost << " for the Tour match the calculated costs." << std::endl;
-    return true;
-}
-
-bool SolData::CheckCapacityBound(int capacity)
-{
-    for(Route route : routesData)
-    {
-        if(!route.DemandIsInCapacity(capacity))
-        {
-            return false;
-        }
-    }
-    std::cout << "The demand on all routes is less or equal to the maximum vehicle capacity of " <<  capacity << std::endl;
-    return true;
-}
-
-bool SolData::IsValidFile()
-{
-    return fileIsValid;
-}
-
