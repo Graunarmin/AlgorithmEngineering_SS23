@@ -12,3 +12,10 @@ und
 ```
 $ ./cvrp_SolutionChecker ../data/Vrp-Set-XXL/Ghent1.vrp ../data/Vrp-Set-XXL/Ghent1.sol
 ``` 
+
+### Problem 2: Greedy Heuristic
+- Executable `greedy_cvrp` mit cmake bauen, dann zum testen: 
+```
+$ ./greedy_cvrp ../data/Vrp-Set-X/X-n101-k25.vrp
+``` 
+- Leider bekommen wir momentan immer einen `segmentation fault` und konnten bisher noch nicht rausfinden, warum.
