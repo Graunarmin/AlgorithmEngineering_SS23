@@ -13,7 +13,7 @@ int Problem::VehicleCapacity() const
     return _vehicleCapacity;
 }
 
-LocationsContainer Problem::Locations()
+LocationsContainer& Problem::Locations()
 {
     return _locations;
 }

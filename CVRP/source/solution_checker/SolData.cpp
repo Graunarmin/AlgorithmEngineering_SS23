@@ -51,7 +51,7 @@ Solution SolData::ReadData(const std::string &filePath, Problem& prbl){
                     customers.push_back(std::stoi(tokens.at(i))+1);
                 }
 
-                // search for customer IDs in _locations
+                // search for customer IDs in _AllLocations
                 Route route = locations.CreateRoute(customers, std::stoi(routeID));
                 routes.push_back(route);
                 customers.clear();

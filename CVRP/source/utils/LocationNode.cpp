@@ -70,4 +70,3 @@ void LocationNode::Visit()
     visited += 1;
     //std::cout << "Visited Node " << locationID << ": visit no. " << visited << std::endl;
 }
-

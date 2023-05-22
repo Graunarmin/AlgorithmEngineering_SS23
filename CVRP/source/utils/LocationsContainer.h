@@ -5,7 +5,7 @@
 #include <iostream>
 #include "LocationNode.h"
 #include "Route.h"
-#include "MathUtil.h"
+#include "../includes/math/MathUtil.h"
 
 class LocationsContainer{
 public:
@@ -14,7 +14,7 @@ public:
     void AddLocation(LocationNode& location);
     void RemoveLocation(LocationNode& locNode);
     Route CreateRoute(const std::vector<int>& locationIDs, int ID);
-    LocationNode GetDepot();
+    LocationNode& GetDepot();
     void AddDemandToLocation(int locID, int demand);
     static int LocationDistance(const LocationNode& loc1, const LocationNode& loc2);
 
@@ -22,6 +22,9 @@ public:
 
     void CreateDistanceMatrix();
     std::vector<std::vector<int>> DistanceMatrix();
+
+    bool AnyNodeUnvisited();
+    std::tuple<bool, LocationNode&> FindNearestUnvisited(LocationNode& node, int maxDemand);
 
 private:
     std::vector<LocationNode> _locations;

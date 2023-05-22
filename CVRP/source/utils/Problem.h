@@ -11,7 +11,7 @@ public:
             int vehicleCapacity);
 
     int VehicleCapacity() const;
-    LocationsContainer Locations();
+    LocationsContainer& Locations();
 
 private:
     LocationsContainer _locations;
