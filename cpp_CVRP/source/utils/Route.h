@@ -4,14 +4,15 @@
 #include <vector>
 #include <iostream>
 #include "LocationNode.h"
-#include "../includes/math/MathUtil.h"
+#include "../../includes/math/MathUtil.h"
 
 class Route{
 public:
     // constructors
     Route();
-    Route(int distance, int demand, int id);
+    Route(int id);
     Route(int capacity, int id);
+    Route(int distance, int demand, int id);
 
     // getters
     int GetID() const;
@@ -25,11 +26,11 @@ public:
     void PrintRoute() const;
 
 private:
-    int ID;
-    int totalCost;
-    int totalDemand;
-    int capacity;
-    int _load;
+    int _routeID;
+    int _routeCost;
+    int _routeDemand;
+    int _vehicleCapacity;
+    int _cargo;
     std::vector<LocationNode> _customers;
 };
 

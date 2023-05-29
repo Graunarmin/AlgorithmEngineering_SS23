@@ -36,7 +36,7 @@ Solution SolData::ReadData(const std::string &filePath, Problem& prbl){
             if(keyword == "Route")
             {
                 // Route #1: 31 46 35
-                // Route-ID is the number at pos 1
+                // Route-_routeID is the number at pos 1
                 std::string routeID = tokens.at(1);
 
                 // we don't need the "#"
@@ -47,7 +47,7 @@ Solution SolData::ReadData(const std::string &filePath, Problem& prbl){
                 // Customer-IDs start from pos 2
                 for(int i = 2; i < tokens.size(); ++i)
                 {
-                    // increase Customer-ID by one to match location-IDs from vrp-file
+                    // increase Customer-_routeID by one to match location-IDs from vrp-file
                     customers.push_back(std::stoi(tokens.at(i))+1);
                 }
 

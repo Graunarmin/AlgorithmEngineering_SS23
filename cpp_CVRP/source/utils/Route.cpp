@@ -2,39 +2,44 @@
 
 Route::Route() = default;
 
+Route::Route(int id)
+{
+    _routeID = id;
+}
+
 Route::Route(int distance, int demand, int id)
 {
-    ID = id;
-    totalCost = distance;
-    totalDemand = demand;
+    _routeID = id;
+    _routeCost = distance;
+    _routeDemand = demand;
 }
 
 Route::Route(int capacity, int id)
 {
-    _load = capacity;
-    ID = id;
+    _cargo = capacity;
+    _routeID = id;
 }
 
 int Route::GetID() const
 {
-    return ID;
+    return _routeID;
 }
 
 int Route::GetTotalDistance() const
 {
-    return totalCost;
+    return _routeCost;
 }
 
 int Route::GetTotalDemand() const
 {
-    return totalDemand;
+    return _routeDemand;
 }
 
 bool Route::DemandIsInCapacity(int capacity) const
 {
-    if(totalDemand > capacity)
+    if(_routeDemand > capacity)
     {
-        std::cout << "Demand on Tour " << ID << " is bigger than vehicle capacity of " << capacity << std::endl;
+        std::cout << "Demand on Tour " << _routeID << " is bigger than vehicle _vehicleCapacity of " << capacity << std::endl;
         return false;
     }
     return true;
@@ -51,26 +56,26 @@ void Route::AddLocation(LocationNode node)
         int y2 = node.Y();
 
         // increase to total distance of the route
-        totalCost += MathUtil::Distance(x1,y1,x2,y2);
+        _routeCost += MathUtil::Distance(x1, y1, x2, y2);
     }
     // Add node to route
     _customers.push_back(node);
 
     // increase total demand on this route
-    totalDemand += node.GetDemand();
+    _routeDemand += node.GetDemand();
 
     // decrease the loaded resources
-    _load -= node.GetDemand();
+    _cargo -= node.GetDemand();
 }
 
 int Route::Load() const
 {
-    return _load;
+    return _cargo;
 }
 
 void Route::PrintRoute() const
 {
-    std::cout << "Route #" << ID << ": ";
+    std::cout << "Route #" << _routeID << ": ";
     for(const auto& c : _customers)
     {
 

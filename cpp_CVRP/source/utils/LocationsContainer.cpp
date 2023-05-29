@@ -9,7 +9,7 @@ void LocationsContainer::AddLocation(LocationNode& location)
 
 void LocationsContainer::RemoveLocation(LocationNode& locNode)
 {
-    // go over the _AllLocations-vector, find the one with the matching ID and remove it
+    // go over the _AllLocations-vector, find the one with the matching _routeID and remove it
     _locations.erase(std::remove_if(
                              _locations.begin(), _locations.end(),
                              [&locNode](LocationNode loc){return loc.GetID() == locNode.GetID();}),
@@ -28,43 +28,36 @@ LocationNode& LocationsContainer::GetDepot()
     return _locations.at(0);
 }
 
-
-Route LocationsContainer::CreateRoute(const std::vector<int>& locationIDs, int ID)
+LocationNode &LocationsContainer::GetLocationNode(int nodeID)
 {
-    int totalDistance = 0;
-    int totalDemand = 0;
-
-    // all routes start at depot
-    LocationNode start = GetDepot();
-
-    // go ove the _AllLocations-vector
-    for(LocationNode& loc : _locations)
+    for(auto & loc : _locations)
     {
-        // if the ID of an element is in the locationIDs vector,
-        if(std::find(locationIDs.begin(), locationIDs.end(), loc.GetID()) != locationIDs.end())
+        if(loc.GetID() == nodeID)
         {
-            // mark this node as visited
-            loc.Visit();
-
-            //compute distance between start and loc
-            totalDistance += LocationDistance(start, loc);
-
-            // increase Route-Demand by Location-Demand
-            totalDemand += loc.GetDemand();
-
-            // set start to loc
-            // ToDo: Check for possible Error when setting start-Node to next node (important for computing the correct distance)
-            start = loc;
+            return loc;
         }
     }
+    LocationNode emptyNode{};
+    return emptyNode;
+}
 
+
+Route LocationsContainer::CreateRoute(const std::vector<int>& customerIDs, int routeID)
+{
+    Route route{routeID};
+
+    // all routes start at depot
+    route.AddLocation(GetDepot());
+
+    for(int customerId : customerIDs)
+    {
+        // ad next stop to route
+        LocationNode customerNode = GetLocationNode(customerId);
+        route.AddLocation(customerNode);
+        // if the routeID of an element is in the customerIDs vector,
+    }
     // all routes end at depot
-    LocationNode end = GetDepot();
-    totalDistance += LocationDistance(start, end);
-
-    // Create Route Object
-    Route route{totalDistance, totalDemand, ID};
-
+    route.AddLocation(GetDepot());
     return route;
 }
 
@@ -140,9 +133,9 @@ std::tuple<bool, LocationNode&> LocationsContainer::FindNearestUnvisited(Locatio
     {
         if(_locations.at(j).TimesVisited() > 0
         && _locations.at(j).GetDemand() <= maxDemand
-        && _distanceMatrix[node.GetID()-1][j] < cost)
+        && _distanceMatrix[node.GetID()][j] < cost)
         {
-            cost = _distanceMatrix[node.GetID()-1][j];
+            cost = _distanceMatrix[node.GetID()][j];
             closest_id = j;
             found = true;
         }

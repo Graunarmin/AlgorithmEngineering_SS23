@@ -5,7 +5,7 @@
 #include <iostream>
 #include "LocationNode.h"
 #include "Route.h"
-#include "../includes/math/MathUtil.h"
+#include "../../includes/math/MathUtil.h"
 
 class LocationsContainer{
 public:
@@ -13,8 +13,9 @@ public:
 
     void AddLocation(LocationNode& location);
     void RemoveLocation(LocationNode& locNode);
-    Route CreateRoute(const std::vector<int>& locationIDs, int ID);
+    Route CreateRoute(const std::vector<int>& customerIDs, int routeID);
     LocationNode& GetDepot();
+    LocationNode& GetLocationNode(int nodeID);
     void AddDemandToLocation(int locID, int demand);
     static int LocationDistance(const LocationNode& loc1, const LocationNode& loc2);
 

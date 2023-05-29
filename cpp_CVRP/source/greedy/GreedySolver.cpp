@@ -23,7 +23,7 @@ void GreedySolver::Solve()
 
         while (true)
         {
-            //Then find the nearest unvisited node for which the _load is still enough
+            //Then find the nearest unvisited node for which the _cargo is still enough
             const auto [found, nearest] = _locations.FindNearestUnvisited(current, route.Load());
 
             // If we did find a next node and the vehicle can satisfy its demand

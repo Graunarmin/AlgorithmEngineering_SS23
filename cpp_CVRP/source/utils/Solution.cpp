@@ -38,7 +38,7 @@ bool Solution::CapacityConditionValid(Problem& problem)
             return false;
         }
     }
-    std::cout << "The demand on all routes is less or equal to the maximum vehicle capacity of " <<  problem.VehicleCapacity() << std::endl;
+    std::cout << "The demand on all routes is less or equal to the maximum vehicle _vehicleCapacity of " <<  problem.VehicleCapacity() << std::endl;
     return true;
 }
 
