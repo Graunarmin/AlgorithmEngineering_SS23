@@ -1,64 +1,81 @@
 from general import maths
-import Route
+from classes import Route
 import sys
 
 
 class LocationContainer:
     def __init__(self):
+        self.depot_id = 1
         self.locations = []
         self.distance_matrix = []
 
     def add_location(self, location_node):
         self.locations.append(location_node)
 
-    def remove_location(self, location_node):
-        self.locations = [loc for loc in self.locations if loc.location_id != location_node.location_id]
+    def set_depot_id(self, depot_id):
+        self.depot_id = depot_id
 
     def get_depot(self):
-        if len(self.locations):
+        try:
+            return self.locations[self.depot_id-1]
+        except IndexError:
             print("No Locations added yet, there is no depot!")
             return
-        return self.locations[0]
 
     def get_node_by_id(self, node_id):
         for loc in self.locations:
             if loc.location_id == node_id:
                 return loc
+        print("Couldn't find a Locations with ID", node_id)
+        return
 
     def create_distance_matrix(self):
         """
         Credit: https://github.com/vss2sn/cvrp/blob/master/src/utils.cpp#L178
         Function that creates a matrix containing the distances between all individual locations.
-        distance_matrix[i][j] = distance between customer i and customer j
-        (IDs based on location-ids from the vrp-file or the problem class)
+        distance_matrix[i][j] = distance between locations[i] (ID = i+1) and locations[j] (ID = j+1)
+        (IDs based on location-ids from the vrp-file)
         """
+        tmp = [0] * len(self.locations)
+        for row in range(len(self.locations)):
+            self.distance_matrix.append(tmp)
+
         for i in range(len(self.locations)):
             for j in range(i, len(self.locations)):
                 self.distance_matrix[i][j] = maths.location_distance(self.locations[i], self.locations[j])
                 self.distance_matrix[j][i] = self.distance_matrix[i][j]
 
-    def create_route(self, customer_ids, route_id):
+    def create_route(self, customer_ids, route_id, capacity):
         """
         Creates a route from a given set of customers
         :param customer_ids: List of customers, that are visited on this route in the given order.
         IDs have to match the location-ids from the vrp-file!
         :param route_id: the id of the route
+        :param capacity:
         :return: a Route-Object that visits all customers on the list
         """
 
-        route = Route.Route(route_id)
+        route = Route.Route(route_id, capacity)
 
         # all routes start at depot
-        depot = self.get_depot()
-        route.add_location(depot)
+        start_id = self.depot_id
+        route.add_waypoint(self.get_depot().demand, 0, start_id, depot=True)
 
-        for customer in customer_ids:
-            # add node to route
-            customer_node = self.get_node_by_id(customer)
-            route.add_location(customer_node)
+        for customer_id in customer_ids:
+            # add demand and distance to route
+            customer_demand = self.get_node_by_id(customer_id).demand
+            distance = self.distance_matrix[start_id - 1][customer_id - 1]
+            route.add_waypoint(customer_demand, distance, customer_id)
+
+            # mark node as visited
+            self.get_node_by_id(customer_id).visit(route_id)
+
+            # set start for next tour to current location
+            start_id = customer_id
 
         # all routes end at depot
-        route.add_location(depot)
+        home_stretch = self.distance_matrix[start_id - 1][self.depot_id - 1]
+        route.add_waypoint(self.get_depot().demand, home_stretch, self.depot_id, depot=True)
         return route
 
     def add_demand_to_location(self, loc_id, demand):
@@ -79,13 +96,6 @@ class LocationContainer:
                 return False
         print("Every Customer was visited exactly once.")
         return True
-
-    def check_any_node_unvisited(self):
-        """
-        Checks if any location was not visited at all
-        :return:
-        """
-        return any(loc.times_visited == 0 for loc in self.locations)
 
     def find_nearest_unvisited(self, current_node, max_demand):
         """
@@ -111,3 +121,7 @@ class LocationContainer:
                 found = True
 
         return [found, self.locations[closest_id]]
+
+    def print(self):
+        for loc in self.locations:
+            loc.print()

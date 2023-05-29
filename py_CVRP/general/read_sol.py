@@ -17,13 +17,12 @@ def read_sol_file(file_path):
             if keyword == "Route":
                 # Route #1: 31 46 35
                 route_id = tokens[1]
-                route_id.replace("#", "").replace(":", "")
+                route_id = route_id.replace("#", "").replace(":", "")
 
                 customers = []
                 for customer_id in range(2, len(tokens)):
                     customers.append(int(tokens[customer_id]) + 1)
                 routes[route_id] = customers
-                customers.clear()
 
             elif keyword == "Cost":
                 sol_cost = tokens[1]
@@ -33,6 +32,6 @@ def read_sol_file(file_path):
                 return
             tokens.clear()
 
-        print("Solution File is VALID.")
+        print("sol-file is VALID.")
         solution = slt.Solution(routes, sol_cost)
         return solution
