@@ -11,6 +11,8 @@ class Solution:
         # create a list of Route-Objects
         routes = self.create_routes(problem)
 
+        # self.total_cost_matches(routes)
+
         # check if the routes fulfill all conditions:
         # 1. is every route within the capacity-bound?
         # 2. is every required customer visited exactly once?

@@ -6,7 +6,7 @@ class Route:
         self.route_capacity = capacity
         self.total_demand = demand
         self.cargo_amount = capacity
-        self.waypoints = []
+        self.waypoints = []                 # List of IDs that are visited:
 
     def add_waypoint(self, demand, distance, waypoint_id, depot=False):
         if not depot:

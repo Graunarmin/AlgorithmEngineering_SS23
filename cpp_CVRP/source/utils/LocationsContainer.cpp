@@ -41,7 +41,7 @@ LocationNode &LocationsContainer::GetLocationNode(int nodeID)
     return emptyNode;
 }
 
-
+// TODO: Fix
 Route LocationsContainer::CreateRoute(const std::vector<int>& customerIDs, int routeID)
 {
     Route route{routeID};
@@ -93,6 +93,7 @@ bool LocationsContainer::CheckVisitedOnce()
 }
 
 // see https://github.com/vss2sn/cvrp/blob/master/src/utils.cpp#L178
+// TODO: never used!!
 void LocationsContainer::CreateDistanceMatrix()
 {
     std::vector<int> tmp(_locations.size());
@@ -117,6 +118,7 @@ std::vector<std::vector<int>> LocationsContainer::DistanceMatrix()
 
 bool LocationsContainer::AnyNodeUnvisited()
 {
+    // ToDO: will always be true bc we never mark depot as visited
     return std::any_of(_locations.begin(), _locations.end(),
                        [](LocationNode node){return node.TimesVisited() == 0;});
 }

@@ -6,8 +6,8 @@ import sys
 class LocationContainer:
     def __init__(self):
         self.depot_id = 1
-        self.locations = []
-        self.distance_matrix = []
+        self.locations = []         # List of LocationNode
+        self.distance_matrix = []   # 2D Matrix
 
     def add_location(self, location_node):
         self.locations.append(location_node)
@@ -22,12 +22,15 @@ class LocationContainer:
             print("No Locations added yet, there is no depot!")
             return
 
-    def get_node_by_id(self, node_id):
+    def get_node(self, node_id):
         for loc in self.locations:
             if loc.location_id == node_id:
                 return loc
         print("Couldn't find a Locations with ID", node_id)
         return
+
+    def visit_node(self, node_id):
+        self.get_node(node_id).visit()
 
     def create_distance_matrix(self):
         """
@@ -45,6 +48,9 @@ class LocationContainer:
                 self.distance_matrix[i][j] = maths.location_distance(self.locations[i], self.locations[j])
                 self.distance_matrix[j][i] = self.distance_matrix[i][j]
 
+    def get_distance(self, loc1_id, loc2_id):
+        return self.distance_matrix[loc1_id - 1][loc2_id - 1]
+
     def create_route(self, customer_ids, route_id, capacity):
         """
         Creates a route from a given set of customers
@@ -60,15 +66,16 @@ class LocationContainer:
         # all routes start at depot
         start_id = self.depot_id
         route.add_waypoint(self.get_depot().demand, 0, start_id, depot=True)
+        self.get_depot().visit(0)
 
         for customer_id in customer_ids:
             # add demand and distance to route
-            customer_demand = self.get_node_by_id(customer_id).demand
-            distance = self.distance_matrix[start_id - 1][customer_id - 1]
+            customer_demand = self.get_node(customer_id).demand
+            distance = self.get_distance(start_id, customer_id)
             route.add_waypoint(customer_demand, distance, customer_id)
 
             # mark node as visited
-            self.get_node_by_id(customer_id).visit(route_id)
+            self.get_node(customer_id).visit(route_id)
 
             # set start for next tour to current location
             start_id = customer_id
@@ -97,6 +104,13 @@ class LocationContainer:
         print("Every Customer was visited exactly once.")
         return True
 
+    def any_node_unvisited(self):
+        """
+        Checks if there is any location that was not visited yet (except from depot)
+        :return:
+        """
+        return any(loc.times_visited == 0 for loc in self.locations)
+
     def find_nearest_unvisited(self, current_node, max_demand):
         """
         Credit: https://github.com/vss2sn/cvrp/blob/master/src/utils.cpp#L96
@@ -114,10 +128,12 @@ class LocationContainer:
             # 2. has a demand at most equal to the max_demand and
             # 3. has a distance smaller than the previously found smallest distance to the current node
             if self.locations[j].times_visited == 0 \
+                    and self.locations[j].location_id != 1 \
                     and self.locations[j].demand <= max_demand \
                     and self.distance_matrix[current_node.location_id][j] < cost:
                 cost = self.distance_matrix[current_node.location_id][j]
-                closest_id = j
+                # ToDo: Check the correct ID!!!
+                closest_id = j + 1
                 found = True
 
         return [found, self.locations[closest_id]]
