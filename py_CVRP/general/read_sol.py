@@ -21,7 +21,7 @@ def read_sol_file(file_path):
 
                 customers = []
                 for customer_id in range(2, len(tokens)):
-                    customers.append(int(tokens[customer_id]) + 1)
+                    customers.append(int(tokens[customer_id]))
                 routes[route_id] = customers
 
             elif keyword == "Cost":

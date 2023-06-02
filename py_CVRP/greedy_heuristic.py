@@ -9,7 +9,8 @@ def main():
     """
     problem = read_vrp.read_vrp_file(sys.argv[1])
 
-    GreedySolver(problem).solve()
+    greedy_solution = GreedySolver().solve(problem)
+    greedy_solution.check_solution(problem, own_solution=True)
 
 
 if __name__ == '__main__':

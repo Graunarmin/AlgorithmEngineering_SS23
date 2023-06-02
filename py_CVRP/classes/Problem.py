@@ -16,5 +16,8 @@ class Problem:
     def visit_node(self, node_id):
         self.locations.visit_node(node_id)
 
+    def visit_depot(self):
+        self.locations.visit_node(self.locations.depot_id)
+
     def distance_between(self, loc1_id, loc2_id):
-        self.locations.get_distance(loc1_id, loc2_id)
+        return self.locations.get_distance(loc1_id, loc2_id)

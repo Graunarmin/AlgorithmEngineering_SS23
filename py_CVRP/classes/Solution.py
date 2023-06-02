@@ -4,12 +4,16 @@ from general import conditions
 class Solution:
 
     def __init__(self, routes_map, sol_file_cost=0):
-        self.sol_file_cost = sol_file_cost
-        self.routes_map = routes_map
+        self.sol_file_cost = sol_file_cost  # the costs that were given in the sol-file
+        self.routes_map = routes_map        # map of routes {route_id1:[wp1, wp2, ...], route_id2: [...], ...}
 
-    def check_solution(self, problem):
+    def check_solution(self, problem, own_solution=False):
+
         # create a list of Route-Objects
-        routes = self.create_routes(problem)
+        if own_solution:
+            routes = [route for route in self.routes_map.values()]
+        else:
+            routes = self.create_routes(problem)
 
         # self.total_cost_matches(routes)
 

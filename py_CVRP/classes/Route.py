@@ -2,10 +2,10 @@ class Route:
 
     def __init__(self, route_id, capacity, distance=0, demand=0):
         self.route_id = route_id
-        self.total_cost = distance
-        self.route_capacity = capacity
-        self.total_demand = demand
-        self.cargo_amount = capacity
+        self.total_cost = distance          # accumulated distance between all waypoints on this route
+        self.route_capacity = capacity      # vehicle capacity for this route
+        self.total_demand = demand          # accumulated demand from all customers on this route
+        self.cargo_amount = capacity        # remaining cargo after visiting each customer
         self.waypoints = []                 # List of IDs that are visited:
 
     def add_waypoint(self, demand, distance, waypoint_id, depot=False):
@@ -15,7 +15,7 @@ class Route:
                 print("ERROR, can't add any more customers, not enough capacity left!")
                 return
 
-            # check if the customer demand is too high to the capacity that's left:
+            # check if the customer demand is too high for the remaining cargo:
             if not self.demand_can_be_met(demand):
                 print("ERROR, cannot add customer with ID", waypoint_id)
                 print("Their demand of", demand, "is too high for the cargo of", self.cargo_amount, "that's left!")

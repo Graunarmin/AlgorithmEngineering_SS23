@@ -1,16 +1,13 @@
-from classes import Problem
-
-
 class Solver:
 
-    def __init__(self, problem):
-        self.problem = problem
-
-        self.total_cost = 0
+    def __init__(self):
         self.routes = {}
+        self.total_cost = 0
+
+    def solve(self, problem):
         pass
 
-    def solve(self):
+    def check_solution(self, problem):
         pass
 
     def write_solution_file(self):
