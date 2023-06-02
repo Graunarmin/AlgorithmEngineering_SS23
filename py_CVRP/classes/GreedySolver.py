@@ -9,8 +9,9 @@ class GreedySolver(Solver):
 
     def solve(self, problem):
         route_id = 0
+
         # As long as there are unvisited nodes
-        while problem.locations.any_node_unvisited():
+        while problem.any_location_unvisited():
             # Create a new route
             route_id += 1
             route = rt.Route(route_id, problem.vehicle_capacity)

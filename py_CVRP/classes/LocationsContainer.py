@@ -8,6 +8,7 @@ class LocationsContainer:
         self.depot_id = 0
         self.locations = []         # List of LocationNode
         self.distance_matrix = []   # 2D Matrix
+        self.average_distance = 0
 
     def init_location_list(self, length):
         self.locations = [0] * length
@@ -34,6 +35,21 @@ class LocationsContainer:
     def add_demand_to_location(self, loc_id, demand):
         self.get_location(loc_id).demand = demand
 
+    def average_distances(self):
+        """
+        Add average distances to all nodes for improved greedy algorithm
+        :return:
+        """
+        # Decrease by one bc. there are 99 Distances for 1 Node if we have a total of 100 Nodes
+        node_amount = len(self.locations) - 1
+
+        for node_id in range(len(self.locations)):
+            total_distance = 0
+            for destination_id in range(len(self.locations)):
+                total_distance += self.get_distance(node_id, destination_id)
+
+            self.locations[node_id].average_distance = (total_distance/node_amount)
+
     def create_distance_matrix(self):
         """
         Credit: https://github.com/vss2sn/cvrp/blob/master/src/utils.cpp#L178
@@ -46,10 +62,18 @@ class LocationsContainer:
             self.distance_matrix.append(tmp)
 
         # 2. Fill Matrix with Distances
+        total_distance = 0
+        distances = 0
         for i in range(len(self.locations)):
             for j in range(i, len(self.locations)):
+                distances += 1
                 self.distance_matrix[i][j] = maths.location_distance(self.locations[i], self.locations[j])
                 self.distance_matrix[j][i] = self.distance_matrix[i][j]
+                total_distance += self.distance_matrix[i][j]
+
+        self.average_distance = total_distance / distances
+        print(self.average_distance)
+        self.average_distances()
 
     def get_distance(self, loc1_id, loc2_id):
         return self.distance_matrix[loc1_id][loc2_id]
@@ -134,6 +158,44 @@ class LocationsContainer:
                 found = True
 
         return [found, self.locations[closest_id]]
+
+    def find_nearest_five(self, current_node, max_demand):
+        closest_5 = {}
+        found = True
+
+        for j in range(len(self.distance_matrix[0])):
+            if self.locations[j].loc_id != self.depot_id \
+                    and self.locations[j].times_visited == 0 \
+                    and self.locations[j].demand <= max_demand:
+
+                cost = self.distance_matrix[current_node.loc_id][j]
+
+                # as long as there are less than 5 nodes in the list, just add the next one
+                if len(closest_5) < 5:
+                    closest_5[j] = cost
+                    print(closest_5)
+                # as soon as there are five values, we start comparing
+                else:
+                    # if the current cost is smaller than any cost already in the list:
+                    if any(cost < c for c in closest_5.values()):
+                        # remove the max cost from the list
+                        max_key = max(zip(closest_5.values(), closest_5.keys()))[1]
+                        del closest_5[max_key]
+                        # and add the new, smaller cost
+                        closest_5[j] = cost
+
+                if len(closest_5) > 1:
+                    found = True
+
+        closest = [node_id for node_id in closest_5.keys()]
+        print(closest)
+        for node in closest:
+            print("ID: ", self.locations[node].average_distance)
+
+        sorted_list = sorted(closest, key=lambda x: self.locations[x].average_distance)
+        print(sorted_list)
+
+        return [found, closest]
 
     def print(self):
         for loc in self.locations:

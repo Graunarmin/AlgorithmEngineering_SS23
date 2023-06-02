@@ -3,6 +3,7 @@ class Problem:
     def __init__(self, locations, capacity):
         self.locations = locations          # LocationContainer
         self.vehicle_capacity = capacity    # int
+        self.average_distance = 0
 
     def depot(self):
         return self.locations.get_depot()
@@ -21,3 +22,6 @@ class Problem:
 
     def distance_between(self, loc1_id, loc2_id):
         return self.locations.get_distance(loc1_id, loc2_id)
+
+    def nearest_five(self, current_node, max_demand):
+        return self.locations.find_nearest_five(current_node, max_demand)
