@@ -26,7 +26,7 @@ class GreedySolver(Solver):
 
             while True:
                 # Then find the nearest unvisited customer who's demand can be fulfilled by the remaining cargo
-                [found, nearest] = problem.nearest_unvisited(current, route.cargo_amount)
+                [found, nearest] = problem.nearest_unvisited(current.loc_id, route.cargo_amount)
 
                 # if there still is such a node:
                 if found:

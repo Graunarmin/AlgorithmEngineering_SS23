@@ -3,7 +3,6 @@ class Problem:
     def __init__(self, locations, capacity):
         self.locations = locations          # LocationContainer
         self.vehicle_capacity = capacity    # int
-        self.average_distance = 0
 
     def depot(self):
         return self.locations.get_depot()

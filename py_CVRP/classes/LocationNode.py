@@ -8,7 +8,6 @@ class LocationNode:
         self.times_visited = 0
         self.route_ids = []     # List of routes that have visited this node
                                 # (should be one for every node except depot)
-        self.average_distance = 0
 
     def visit(self, route_id=0):
         self.times_visited += 1
