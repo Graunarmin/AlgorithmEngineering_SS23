@@ -35,3 +35,6 @@ class Route:
 
     def total_demand_meets_capacity(self):
         return self.total_demand <= self.route_capacity
+
+    def print(self):
+        print("Route #", self.route_id, ":", self.waypoints, " - Cost:", self.total_cost)

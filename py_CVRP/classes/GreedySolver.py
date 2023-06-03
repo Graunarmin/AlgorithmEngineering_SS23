@@ -57,7 +57,7 @@ class GreedySolver(Solver):
                     break
 
         for route in self.routes:
-            print("Route #", self.routes[route].route_id, ":", self.routes[route].waypoints)
+            self.routes[route].print()
             self.total_cost += self.routes[route].total_cost
 
         print("Cost: ", self.total_cost)

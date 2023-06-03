@@ -16,5 +16,9 @@ class LocationNode:
     def coordinates(self):
         return [self.x, self.y]
 
+    def set_average_distance(self, distance):
+        self.average_distance = distance
+
     def print(self):
-        print("ID:", self.loc_id, " Demand:", self.demand, " Times visited:", self.times_visited)
+        print("Location ID:", self.loc_id, " Demand:", self.demand, " Times visited:", self.times_visited,
+              " Average Distance from other nodes:", self.average_distance)

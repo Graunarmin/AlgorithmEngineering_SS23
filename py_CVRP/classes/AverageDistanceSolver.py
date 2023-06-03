@@ -22,23 +22,34 @@ class AverageDistanceSolver(Solver):
             problem.visit_depot()
 
             while True:
-                [found, nearest_5] = problem.nearest_five(current.loc_id, route.cargo_amount)
+                [found, closest_five] = problem.nearest_five(current.loc_id, route.cargo_amount)
 
                 if found:
-                    nearest = problem.locations.get_location(min(zip(nearest_5.values(), nearest_5.keys()))[1])
-                    # 1. sort nearest5 by distance from current (max to min)
-                    candidate_order = [node_id for node_id in nearest_5.keys()]
-                    candidate_order = sorted(candidate_order, key=lambda x: nearest_5[x])
-                    candidate_order.reverse()
+                    # 1. sort closest5 by distance from current (min to max)
+                    candidate_order = [node_id for node_id in closest_five.keys()]
+                    candidate_order = sorted(candidate_order, key=lambda x: closest_five[x])
 
-                    # 2. go through list and visit the first one that has no distance to another node
-                    # which is smaller than the distance to current
-                    for node_id in candidate_order:
-                        # TODO: sth. is probably wrong with smaller_distance_remaining - CHECK!!
-                        if not problem.locations.smaller_distance_remaining(node_id, nearest_5[node_id]):
-                            nearest = problem.locations.get_location(node_id)
+                    # 2. set nearest to the closest node
+                    nearest = problem.locations.get_location(candidate_order[0])
 
-                    # 3. Add node to route
+                    if len(candidate_order) > 1:
+                        # 3. Compute the average distance of all remaining locations
+                        total_average_distance = problem.locations.total_average_distance()
+
+                        # 4. Go through candidates
+                        for node_id in candidate_order:
+                            distance_to_current = closest_five[node_id]
+
+                            # 5. Check for Outliers:
+                            if problem.locations.average_distance(node_id) > total_average_distance:
+
+                                # 6. If current is closer to that node than the average distance is
+                                if distance_to_current < total_average_distance:
+                                    # we assume that it could pay off to visit that node now
+                                    nearest = problem.locations.get_location(node_id)
+                                    break
+
+                    # Add node to route
                     route.add_waypoint(demand=nearest.demand,
                                        distance=problem.distance_between(
                                            current.loc_id, nearest.loc_id),
@@ -63,7 +74,7 @@ class AverageDistanceSolver(Solver):
                     break
 
         for route in self.routes:
-            print("Route #", self.routes[route].route_id, ":", self.routes[route].waypoints)
+            self.routes[route].print()
             self.total_cost += self.routes[route].total_cost
 
         print("Cost: ", self.total_cost)
