@@ -17,8 +17,10 @@ def main():
     greedy_solution = GreedySolver().solve(problem)
     greedy_solution.check_solution(problem, own_solution=True)
 
-    wall_time.stop()
-    cpu_time.stop()
+    wall_time = wall_time.stop()
+    cpu_time = cpu_time.stop()
+
+    greedy_solution.write_time(wall_time, cpu_time)
 
 
 if __name__ == '__main__':

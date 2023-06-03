@@ -56,9 +56,8 @@ class GreedySolver(Solver):
                     self.routes[route_id] = route
                     break
 
-        for route in self.routes:
-            self.routes[route].print()
-            self.total_cost += self.routes[route].total_cost
+        self.write_solution_file("greedy/", problem.file_name.replace(".vrp", ".sol"))
+        return Solution(self.routes, self.total_cost, "greedy/"+problem.file_name.replace(".vrp", ".sol"))
 
-        print("Cost: ", self.total_cost)
-        return Solution(self.routes, self.total_cost)
+    def write_solution_file(self, solver_path, file_name):
+        super(GreedySolver, self).write_solution_file(solver_path, file_name)

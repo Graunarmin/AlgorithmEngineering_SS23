@@ -12,7 +12,7 @@ class WallClockTimer:
 
     def stop(self):
         self.end_time = time.time()
-        print("Wall Time: ", self.end_time - self.start_time)
+        return self.end_time - self.start_time
 
 
 class CPUTimer:
@@ -26,4 +26,4 @@ class CPUTimer:
 
     def stop(self):
         self.end_time = time.process_time()
-        print("CPU Time: ", self.end_time - self.start_time)
+        return self.end_time - self.start_time

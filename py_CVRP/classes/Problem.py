@@ -1,8 +1,10 @@
 class Problem:
 
-    def __init__(self, locations, capacity):
+    def __init__(self, locations, capacity, file_name):
         self.locations = locations          # LocationContainer
         self.vehicle_capacity = capacity    # int
+        tokens = file_name.split("/")
+        self.file_name = tokens[len(tokens)-1]
 
     def depot(self):
         return self.locations.get_depot()

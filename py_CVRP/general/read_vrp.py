@@ -53,5 +53,5 @@ def read_vrp_file(file_path):
                 section = 5
 
     required_locations.create_distance_matrix()
-    problem = prbl.Problem(required_locations, vehicle_capacity)
+    problem = prbl.Problem(required_locations, vehicle_capacity, file_path)
     return problem

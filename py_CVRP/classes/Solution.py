@@ -3,9 +3,10 @@ from general import conditions
 
 class Solution:
 
-    def __init__(self, routes_map, sol_file_cost=0):
+    def __init__(self, routes_map, sol_file_cost=0, file_path=""):
         self.sol_file_cost = sol_file_cost  # the costs that were given in the sol-file
         self.routes_map = routes_map        # map of routes {route_id1:[wp1, wp2, ...], route_id2: [...], ...}
+        self.file_path = file_path
 
     def check_solution(self, problem, own_solution=False):
 
@@ -47,3 +48,8 @@ class Solution:
             return False
         print("The solution-costs of ", self.sol_file_cost, " for the Tour match the calculated costs.")
         return True
+
+    def write_time(self, wall_time, cpu_time):
+        with open("../data/results/" + self.file_path, 'a') as outfile:
+            outfile.write("Wall Time: " + str(wall_time) + "\n")
+            outfile.write("CPU Time: " + str(cpu_time) + "\n")

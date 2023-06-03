@@ -73,9 +73,8 @@ class AverageDistanceSolver(Solver):
                     self.routes[route_id] = route
                     break
 
-        for route in self.routes:
-            self.routes[route].print()
-            self.total_cost += self.routes[route].total_cost
+        self.write_solution_file("average_distance/", problem.file_name.replace(".vrp", ".sol"))
+        return Solution(self.routes, self.total_cost, "average_distance/" + problem.file_name.replace(".vrp", ".sol"))
 
-        print("Cost: ", self.total_cost)
-        return Solution(self.routes, self.total_cost)
+    def write_solution_file(self, solver_path, file_name):
+        super(AverageDistanceSolver, self).write_solution_file(solver_path, file_name)

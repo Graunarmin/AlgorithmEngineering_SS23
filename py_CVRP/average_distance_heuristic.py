@@ -13,11 +13,13 @@ def main():
     cpu_time = CPUTimer()
 
     problem = read_vrp.read_vrp_file(sys.argv[1])
-    distance_consideration_solution = AverageDistanceSolver().solve(problem)
-    distance_consideration_solution.check_solution(problem, own_solution=True)
+    average_distance_solution = AverageDistanceSolver().solve(problem)
+    average_distance_solution.check_solution(problem, own_solution=True)
 
-    wall_time.stop()
-    cpu_time.stop()
+    wall_time = wall_time.stop()
+    cpu_time = cpu_time.stop()
+
+    average_distance_solution.write_time(wall_time, cpu_time)
 
 
 if __name__ == '__main__':
