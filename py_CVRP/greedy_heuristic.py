@@ -1,8 +1,8 @@
 import sys
 from general import read_vrp
-from classes.GreedySolver import GreedySolver
-from general.measure_time import WallClockTimer
-from general.measure_time import CPUTimer
+from classes.Solvers.GreedySolver import GreedySolver
+from classes.Timer import WallClockTimer
+from classes.Timer import CPUTimer
 
 
 def main():

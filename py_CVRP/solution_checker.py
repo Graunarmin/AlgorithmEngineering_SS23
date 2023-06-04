@@ -1,8 +1,8 @@
 import sys
 from general import read_vrp
 from general import read_sol
-from general.measure_time import WallClockTimer
-from general.measure_time import CPUTimer
+from classes.Timer import WallClockTimer
+from classes.Timer import CPUTimer
 
 
 def main():

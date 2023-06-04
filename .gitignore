@@ -47,8 +47,6 @@ CMakeFiles
 cmake_out
 cmake-build-debug
 
-# Data
-[Dd]ata
 
 # ------------------ PYTHON ------------------
 # Byte-compiled / optimized / DLL files
@@ -191,3 +189,6 @@ dmypy.json
 
 #JetBrains
 .idea
+
+# Data
+# [Dd]ata

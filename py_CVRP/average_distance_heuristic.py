@@ -1,8 +1,8 @@
 import sys
 from general import read_vrp
-from classes.AverageDistanceSolver import AverageDistanceSolver
-from general.measure_time import WallClockTimer
-from general.measure_time import CPUTimer
+from classes.Solvers.AverageDistanceSolver import AverageDistanceSolver
+from classes.Timer import WallClockTimer
+from classes.Timer import CPUTimer
 
 
 def main():
