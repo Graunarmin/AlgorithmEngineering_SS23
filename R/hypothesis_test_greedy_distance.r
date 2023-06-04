@@ -112,7 +112,7 @@ wilcoxon_test <- function (Z, n){
   print(paste0("The p-value for the wilcoxon rank test is ", p))
 }
 
-#wilcoxon_test(Z,n)
+wilcoxon_test(Z,n)
 
 ##############################################################################
 # As p > alpha, we accept H0.
@@ -120,5 +120,5 @@ wilcoxon_test <- function (Z, n){
 ##############################################################################
 
 # and now all in one line
-#wilcox.test(Z, alternative = "greater")
+wilcox.test(Z, alternative = "greater")
 
