@@ -1,8 +1,11 @@
+# standard library imports
 import sys
-from CVRP_py.helpers import read_vrp
-from CVRP_py.helpers import read_sol
-from CVRP_py.classes.Timer import WallClockTimer
-from CVRP_py.classes.Timer import CPUTimer
+
+# local imports
+from helpers import read_vrp
+from helpers import read_sol
+from classes.Timer import WallClockTimer
+from classes.Timer import CPUTimer
 
 
 def main():

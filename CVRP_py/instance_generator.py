@@ -1,17 +1,19 @@
-import sys
-from CVRP_py.classes import InstanceGenerator as IG
+from classes import InstanceGenerator as IG
 
 
 def main():
-    """
-    Argument 1: number of locations
-    """
-    generator = IG.InstanceGenerator()
-    # generator.create_locations(sys.argv[1])
+    generator = IG.InstanceGenerator("../data/custom/")
 
+    numbers_of_locations = [100, 150, 200, 250, 300, 350, 400, 500, 600, 700]
     number_of_instances = 1000
-    for i in range(number_of_instances):
-        generator.create_locations(200, i)
+
+    # generator = IG.InstanceGenerator("../data/small/")
+    # numbers_of_locations = [20, 50, 100]
+    # number_of_instances = 10
+
+    for n in numbers_of_locations:
+        for i in range(number_of_instances+1):
+            generator.create_locations(n, instance_id=i)
 
 
 if __name__ == '__main__':

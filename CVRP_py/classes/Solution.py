@@ -1,4 +1,4 @@
-from ..helpers import cvrp_conditions as conditions
+from helpers import cvrp_conditions as conditions
 
 
 class Solution:
@@ -53,3 +53,9 @@ class Solution:
         with open("../data/results/" + self.file_path, 'a') as outfile:
             outfile.write("Wall Time: " + str(wall_time) + "\n")
             outfile.write("CPU Time: " + str(cpu_time) + "\n")
+
+    def total_length(self):
+        return self.sol_file_cost
+
+    def number_of_subtours(self):
+        return len(self.routes_map.keys())

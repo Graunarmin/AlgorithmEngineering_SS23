@@ -1,8 +1,11 @@
+# standard library imports
 import sys
-from CVRP_py.helpers import read_vrp
-from CVRP_py.classes.Solvers.AverageDistanceSolver import AverageDistanceSolver
-from CVRP_py.classes.Timer import WallClockTimer
-from CVRP_py.classes.Timer import CPUTimer
+
+# local imports
+from helpers import read_vrp
+from classes.AverageDistanceSolver import AverageDistanceSolver
+from classes.Timer import WallClockTimer
+from classes.Timer import CPUTimer
 
 
 def main():
@@ -14,6 +17,8 @@ def main():
 
     problem = read_vrp.read_vrp_file(sys.argv[1])
     average_distance_solution = AverageDistanceSolver().solve(problem)
+
+    average_distance_solution.write_solution_file("average_distance/", problem.file_name.replace(".vrp", ".txt"))
     average_distance_solution.check_solution(problem, own_solution=True)
 
     wall_time = wall_time.stop()

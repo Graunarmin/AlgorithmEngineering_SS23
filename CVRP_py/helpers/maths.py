@@ -23,3 +23,33 @@ def sigma_binomial_coefficient(last):
     for i in range(last, 1, -1):
         total += math.comb(i, 2)
     return total
+
+
+def mean(x_values):
+    res = sum(x_values) / len(x_values)
+    return round(res, 3)
+
+
+def variance(x_values, x_mean):
+    var = sum([(x - x_mean) ** 2 for x in x_values]) / (len(x_values) - 1)
+    return round(var, 3)
+
+
+def covariance(x_values, x_mean, y_values, y_mean):
+    """
+    Computes the Covariance of X and Y
+    """
+    cov = sum([(x - x_mean) * (y - y_mean) for x, y in zip(x_values, y_values)])
+
+    return round((cov / (len(x_values) - 1)), 3)
+
+
+def random_variate(x_values, y_values, y_variance, covariance):
+    """
+    Computes the random variate z = x - a(y - mean(Y))
+    mit a = Cov(X,Y)/Var(Y)
+    """
+    rd_variates = [x - (covariance / y_variance) * (y - y_variance)
+                   for x, y in zip(x_values, y_values)]
+
+    return rd_variates

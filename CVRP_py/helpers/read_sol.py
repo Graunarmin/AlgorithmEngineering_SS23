@@ -1,4 +1,4 @@
-from ..classes import Solution as slt
+from classes import Solution as slt
 
 
 def read_sol_file(file_path):

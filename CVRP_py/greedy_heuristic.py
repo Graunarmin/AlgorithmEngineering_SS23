@@ -1,8 +1,11 @@
+# standard library imports
 import sys
-from CVRP_py.helpers import read_vrp
-from CVRP_py.classes.Solvers.GreedySolver import GreedySolver
-from CVRP_py.classes.Timer import WallClockTimer
-from CVRP_py.classes.Timer import CPUTimer
+
+# local imports
+from helpers import read_vrp
+from classes.GreedySolver import GreedySolver
+from classes.Timer import WallClockTimer
+from classes.Timer import CPUTimer
 
 
 def main():
@@ -13,8 +16,9 @@ def main():
     cpu_time = CPUTimer()
 
     problem = read_vrp.read_vrp_file(sys.argv[1])
-
     greedy_solution = GreedySolver().solve(problem)
+
+    greedy_solution.write_solution_file("greedy/", problem.file_name.replace(".vrp", ".txt"))
     greedy_solution.check_solution(problem, own_solution=True)
 
     wall_time = wall_time.stop()

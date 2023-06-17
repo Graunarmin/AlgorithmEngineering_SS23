@@ -1,6 +1,6 @@
-from ..classes import LocationNode as ln
-from ..classes import LocationsContainer as lct
-from ..classes import Problem as prbl
+from classes import LocationNode as ln
+from classes import LocationsContainer as lct
+from classes import Problem as prbl
 
 
 def read_vrp_file(file_path):

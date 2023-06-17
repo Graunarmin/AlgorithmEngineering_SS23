@@ -1,6 +1,7 @@
-from ..helpers import maths
-from ..classes import Route
 import sys
+
+from helpers import maths
+from classes import Route as rt
 
 
 class LocationsContainer:
@@ -96,7 +97,7 @@ class LocationsContainer:
         :return: a Route-Object that visits all customers on the list
         """
 
-        route = Route.Route(route_id, capacity)
+        route = rt.Route(route_id, capacity)
 
         # all routes start at depot
         start_id = self.depot_id
