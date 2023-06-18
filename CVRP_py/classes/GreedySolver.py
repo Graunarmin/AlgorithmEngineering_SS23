@@ -6,8 +6,12 @@ from classes import Solution as slt
 class GreedySolver(Solver):
     def __init__(self):
         super().__init__()
+        self.heuristics_path = "greedy/"
 
     def solve(self, problem):
+        """
+        Solves the given problem with the greedy approach and returns a Solution-Object
+        """
         route_id = 0
 
         # As long as there are unvisited nodes
@@ -59,7 +63,9 @@ class GreedySolver(Solver):
         for route in self.routes:
             self.total_cost += self.routes[route].total_cost
 
-        return slt.Solution(self.routes, self.total_cost, "greedy/"+problem.file_name.replace(".vrp", ".txt"))
+        return slt.Solution(routes_map=self.routes,
+                            sol_file_cost=self.total_cost,
+                            file_path=self.heuristics_path + problem.file_name.replace(".vrp", self.file_format))
 
     def write_solution_file(self, solver_path, file_name):
         super(GreedySolver, self).write_solution_file(solver_path, file_name)

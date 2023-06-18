@@ -6,7 +6,9 @@ class Solver:
     def __init__(self):
         self.routes = {}        # dictionary of the solution-routes
         self.total_cost = 0     # total cost for this solution
-        self.solution_path = "../data/results/"
+        self.solution_path = "../data/sol/"
+        self.file_format = ".txt"
+        self.heuristics_path = ""
 
     def solve(self, problem):
         pass

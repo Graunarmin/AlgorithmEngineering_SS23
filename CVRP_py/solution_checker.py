@@ -12,6 +12,8 @@ def main():
     """
     Argument 1: relative path to vrp-file ("../data/Vrp-Set-X/X-n101-k25.vrp")
     Argument 2: relative path to matching sol-file ("../data/Vrp-Set-X/X-n101-k25.sol")
+    Reads in the given vrp and sol-files
+    and checks if the solution given in sol is valid for the given vrp
     """
     wall_time = WallClockTimer()
     cpu_time = CPUTimer()

@@ -6,8 +6,12 @@ from classes import Solution as slt
 class AverageDistanceSolver(Solver):
     def __init__(self):
         super().__init__()
+        self.heuristics_path = "average_distance/"
 
     def solve(self, problem):
+        """
+        Solves the given problem with the average-distances approach and returns a Solution-Object
+        """
         route_id = 0
 
         while problem.any_location_unvisited():
@@ -75,7 +79,9 @@ class AverageDistanceSolver(Solver):
         for route in self.routes:
             self.total_cost += self.routes[route].total_cost
 
-        return slt.Solution(self.routes, self.total_cost, "average_distance/" + problem.file_name.replace(".vrp", ".txt"))
+        return slt.Solution(routes_map=self.routes,
+                            sol_file_cost=self.total_cost,
+                            file_path=self.heuristics_path + problem.file_name.replace(".vrp", self.file_format))
 
     def write_solution_file(self, solver_path, file_name):
         super(AverageDistanceSolver, self).write_solution_file(solver_path, file_name)

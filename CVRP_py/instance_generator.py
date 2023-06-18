@@ -2,18 +2,21 @@ from classes import InstanceGenerator as IG
 
 
 def main():
-    generator = IG.InstanceGenerator("../data/custom/")
-
-    numbers_of_locations = [100, 150, 200, 250, 300, 350, 400, 500, 600, 700]
-    number_of_instances = 1000
-
-    # generator = IG.InstanceGenerator("../data/small/")
+    """
+    Generates N random instances for each n given in number_of_locations.
+    Folders n-<n> have to exist in "../data/custom/"
+    """
+    # vrp_folder = "../data/small/"
     # numbers_of_locations = [20, 50, 100]
     # number_of_instances = 10
 
-    for n in numbers_of_locations:
-        for i in range(number_of_instances+1):
-            generator.create_locations(n, instance_id=i)
+    vrp_folder = "../data/custom/"
+    numbers_of_locations = [100, 150, 200, 250, 300, 350, 400, 500, 600, 700]
+    number_of_instances = 1000
+
+    IG.InstanceGenerator(numbers_of_locations=numbers_of_locations,
+                         number_of_instances=number_of_instances,
+                         vrp_folder=vrp_folder)
 
 
 if __name__ == '__main__':

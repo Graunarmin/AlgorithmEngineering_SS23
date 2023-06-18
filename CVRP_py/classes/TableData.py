@@ -1,5 +1,6 @@
 from helpers import maths
 from helpers import load_write
+from helpers import latex_utils as latex
 
 
 class TableData:
@@ -7,6 +8,7 @@ class TableData:
     def __init__(self, list_of_n, number_of_instances):
         self.number_of_instances = number_of_instances
         self.data = {}
+
         for n in list_of_n:
             self.data[n] = {"length_values": [],
                             "lengths_mean": 0, "lengths_variance": 0,
@@ -22,18 +24,17 @@ class TableData:
 
     def add_solution_data(self, solution, n):
         if self.current_n == 0:
-            print(n)
             self.current_n = n
+            print("n =" + str(n))
 
         elif self.current_n == n:
-            # print("n is still " + str(n))
             self.lengths.append(solution.total_length())
             self.subtours.append(solution.number_of_subtours())
 
         else:
             self.compute_results_for_n()
-            print("now n is " + str(n))
             self.current_n = n
+            print("n = " + str(n))
 
     def last_solution_added(self):
         self.compute_results_for_n()
@@ -82,4 +83,6 @@ class TableData:
         load_write.write_json(self.data, filepath)
 
     def write_data_to_latex_table(self, filepath):
-        load_write.write_latex_table(self.data, filepath, ["length_values", "subtour_values", "z_values"])
+        table = latex.dict_to_latex_table(self.data,
+                                          exclude_columns=["length_values", "subtour_values", "z_values"])
+        load_write.write_txt(table, filepath)

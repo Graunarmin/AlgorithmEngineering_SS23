@@ -11,6 +11,8 @@ from classes.Timer import CPUTimer
 def main():
     """
     Argument 1: relative path to vrp-file ("../data/Vrp-Set-X/X-n101-k25.vrp")
+    Reads in the vrp-file given by arg1 and solves it with the average-distance heuristic.
+    Writes the solution to a .txt file (because that one can be previewed, while .sol file format can not)
     """
     wall_time = WallClockTimer()
     cpu_time = CPUTimer()
