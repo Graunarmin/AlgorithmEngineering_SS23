@@ -44,8 +44,17 @@ def create_locations(number_of_locations,
 
 class InstanceGenerator:
 
-    def __init__(self, numbers_of_locations, number_of_instances, vrp_folder):
+    def __init__(self, numbers_of_locations, number_of_instances, vrp_folder,
+                 max_x=1000, max_y=1000,
+                 max_demand=101, capacity_range=(180, 400),
+                 instance_id=0
+                 ):
         for n in numbers_of_locations:
             for i in range(number_of_instances + 1):
-                problem = create_locations(n, instance_id=i)
+                problem = create_locations(n,
+                                           max_x, max_y,
+                                           max_demand,
+                                           capacity_range,
+                                           instance_id=i)
+
                 problem.write_vrp_file(n, vrp_folder)
