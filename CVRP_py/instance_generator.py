@@ -10,8 +10,11 @@ def main():
     # numbers_of_locations = [20, 50, 100]
     # number_of_instances = 10
 
-    vrp_folder = "../data/custom/"
-    numbers_of_locations = [100, 150, 200, 250, 300, 350, 400, 500, 600, 700]
+    # vrp_folder = "../data/custom/"
+    # numbers_of_locations = [100, 150, 200, 250, 300, 350, 400, 500, 600, 700]
+
+    vrp_folder = "../data/horse-race-special/"
+    numbers_of_locations = [300]
     number_of_instances = 1000
 
     IG.InstanceGenerator(numbers_of_locations=numbers_of_locations,
