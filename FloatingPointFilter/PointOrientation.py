@@ -1,31 +1,20 @@
+import maths
+from fractions import Fraction
+
 from classes.Measure import Measure
 from classes.Index import Index
 
 
-def preparation(p, q, r):
-    epsilon_float = pow(2, -24)
-    epsilon_double = pow(2, -53)
-
-    # 1. Homogene Koordinaten in Gleitkommazahlen konvertieren
-    float_p = p.floating_point_coordinate()
-    float_q = q.floating_point_coordinate()
-    float_r = r.floating_point_coordinate()
+class ThreePointOrientation:
+    def __init__(self):
+        self.single_precision = pow(2, -24)
+        self.double_precision = pow(2, -53)
+        self.index = Index().ind
 
 
-def approximate_determinant(p, q, r, precision):
-    approx_determinant = p.x * (q.y * r.w - r.y * q.w) - \
-                          p.y * (q.x * r.w - r.x * q.w) + \
-                          p.w * (q.x * r.y - r.x * q.y)
-
-    return approx_determinant
-
-
-def is_integer(a):
-    pass
-
-
-def floating_point_arithmetics(p, q, r, precision):
-    det = approximate_determinant(p, q, r, precision)
+# -------------- STATIC FUNCTIONS ----------------
+def floating_point_arithmetics(p, q, r):
+    det = maths.approximate_determinant(p, q, r)
 
     if det < 0:
         return -1
@@ -36,15 +25,22 @@ def floating_point_arithmetics(p, q, r, precision):
 
 
 def integer_arithmetics(p, q, r):
-    pass
+    det = maths.precise_determinant(p, q, r)
+
+    if det < Fraction(0):
+        return -1
+    elif det > Fraction(0):
+        return 1
+    else:
+        return 0
 
 
-def floating_point_filter(p, q, r, epsilon):
-    det_approx = approximate_determinant(p, q, r, epsilon)
+def floating_point_filter(p, q, r, epsilon, index):
+    det_approx = maths.approximate_determinant(p, q, r)
 
     # 3. compute measure and index
     mes_E = Measure(p, q, r).mes
-    ind_E = Index().ind
+    ind_E = index
 
     # 4. compute B
     upper_bound = epsilon * ind_E * mes_E
@@ -54,13 +50,7 @@ def floating_point_filter(p, q, r, epsilon):
         return 1
     elif det_approx <= -upper_bound:
         return -1
-    elif upper_bound < 1 and is_integer(det_approx):
+    elif upper_bound < 1 and maths.is_integer(det_approx):
         return 0
     else:
         return integer_arithmetics(p, q, r)
-
-
-
-
-
-

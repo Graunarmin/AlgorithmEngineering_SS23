@@ -1,15 +1,18 @@
+from maths import abs_fl
+
+
 class Measure:
 
     def __init__(self, p, q, r):
-        self.mes = self.sum(self.diff(self.prod(float(p.x),
-                                                self.diff(self.prod(float(q.y), float(r.w)),
-                                                          self.prod(float(r.y), float(q.w)))),
-                                      self.prod(float(p.y),
-                                                self.diff(self.prod(float(q.x), float(r.w)),
-                                                          self.prod(float(r.x), float(q.w))))),
-                            self.prod(float(p.w),
-                                      self.diff(self.prod(float(q.x), float(r.y)),
-                                                self.prod(float(r.x), float(q.y)))))
+        self.mes = self.sum(self.diff(self.prod(abs_fl(p.x),
+                                                self.diff(self.prod(abs_fl(q.y), abs_fl(r.w)),
+                                                          self.prod(abs_fl(r.y), abs_fl(q.w)))),
+                                      self.prod(abs_fl(p.y),
+                                                self.diff(self.prod(abs_fl(q.x), abs_fl(r.w)),
+                                                          self.prod(abs_fl(r.x), abs_fl(q.w))))),
+                            self.prod(abs_fl(p.w),
+                                      self.diff(self.prod(abs_fl(q.x), abs_fl(r.y)),
+                                                self.prod(abs_fl(r.x), abs_fl(q.y)))))
 
     def sum(self, mes_a, mes_b):
         return mes_a + mes_b

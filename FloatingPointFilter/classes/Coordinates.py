@@ -1,20 +1,24 @@
+from fractions import Fraction
+
+
 class HomogenousCoordinate:
 
     def __init__(self, x, y, w):
-        self.x = x
-        self.y = y
-        self.w = w
+        self.x = Fraction(x)
+        self.y = Fraction(y)
+        self.w = Fraction(w)
 
-    def floating_point_coordinate(self):
-        return FloatingPointCoordinate(self.x/self.w,
-                                       self.y/self.w)
+    def float_coord(self):
+        x = float(self.x)
+        y = float(self.y)
+        w = float(self.w)
+        return[x, y, w]
 
-
-class FloatingPointCoordinate:
-
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def fraction_coord(self):
+        x = Fraction(self.x)
+        y = Fraction(self.y)
+        w = Fraction(self.w)
+        return[x, y, w]
 
 
 class CoordinateTriple:

@@ -16,7 +16,7 @@ class Index:
         return 1 + max(ind_a, ind_b) * (1 + epsilon)
 
     def diff(self, ind_a, ind_b):
-        return sum(ind_a, ind_b)
+        return self.sum(ind_a, ind_b)
 
     def prod(self, ind_a, ind_b):
         epsilon = pow(2, -53)

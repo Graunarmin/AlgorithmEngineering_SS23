@@ -1,16 +1,25 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+import PointOrientation as po
+from PointOrientation import ThreePointOrientation
+from classes.Coordinates import HomogenousCoordinate as hc
 
 
-# Press the green button in the gutter to run the script.
+def main():
+    constants = ThreePointOrientation()
+
+    p = hc("7", "2", "1")
+    q = hc("6", "6", "1")
+    r = hc("4", "4", "1")
+
+    float_sign = po.floating_point_arithmetics(p, q, r)
+    exact_sign = po.integer_arithmetics(p, q, r)
+    filter_sign = po.floating_point_filter(p, q, r,
+                                           constants.double_precision,
+                                           constants.index)
+
+    print("Float-Precision: ", float_sign)
+    print("Exact: ", exact_sign)
+    print("Filter: ", filter_sign)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
