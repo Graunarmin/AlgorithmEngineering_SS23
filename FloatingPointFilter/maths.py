@@ -1,3 +1,4 @@
+# standard library imports
 import fractions
 import numbers
 
@@ -11,9 +12,9 @@ def abs_fl(a):
 
 
 def approximate_determinant(p, q, r):
-    approx_determinant = fl(p.x) * (fl(q.y) * fl(r.w) - fl(r.y) * fl(q.w)) - \
-                         fl(p.y) * (fl(q.x) * fl(r.w) - fl(r.x) * fl(q.w)) + \
-                         fl(p.w) * (fl(q.x) * fl(r.y) - fl(r.x) * fl(q.y))
+    approx_determinant = fl(p.x) * (fl(q.y) * 1.0 - fl(r.y) * 1.0) - \
+                         fl(p.y) * (fl(q.x) * 1.0 - fl(r.x) * 1.0) + \
+                         1.0 * (fl(q.x) * fl(r.y) - fl(r.x) * fl(q.y))
 
     return approx_determinant
 

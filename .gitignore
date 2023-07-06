@@ -186,3 +186,8 @@ dmypy.json
 
 #JetBrains
 .idea
+
+
+# ----------- SIZE ------------
+instances.json
+results.json

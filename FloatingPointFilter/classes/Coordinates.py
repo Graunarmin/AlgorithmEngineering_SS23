@@ -1,24 +1,25 @@
+# standard library imports
 from fractions import Fraction
 
 
-class HomogenousCoordinate:
+class HomogenousPoint:
 
     def __init__(self, x, y, w):
         self.x = Fraction(x)
         self.y = Fraction(y)
         self.w = Fraction(w)
 
-    def float_coord(self):
-        x = float(self.x)
-        y = float(self.y)
-        w = float(self.w)
-        return[x, y, w]
+    def cartesian(self):
+        return CartesianPoint(self.x / self.w, self.y / self.w)
 
-    def fraction_coord(self):
-        x = Fraction(self.x)
-        y = Fraction(self.y)
-        w = Fraction(self.w)
-        return[x, y, w]
+    def print(self):
+        print("X: " + str(self.x) + ", Y: " + str(self.y) + ", W: " + str(self.w))
+
+
+class CartesianPoint:
+    def __init__(self, x, y):
+        self.x = float(x)
+        self.y = float(y)
 
 
 class CoordinateTriple:

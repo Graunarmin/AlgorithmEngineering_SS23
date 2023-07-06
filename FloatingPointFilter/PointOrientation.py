@@ -1,6 +1,8 @@
+# standard library imports
 import maths
 from fractions import Fraction
 
+# local imports
 from classes.Measure import Measure
 from classes.Index import Index
 
@@ -14,11 +16,13 @@ class ThreePointOrientation:
 
 # -------------- STATIC FUNCTIONS ----------------
 def floating_point_arithmetics(p, q, r):
-    det = maths.approximate_determinant(p, q, r)
+    approx_det = maths.approximate_determinant(p.cartesian(),
+                                               q.cartesian(),
+                                               r.cartesian())
 
-    if det < 0:
+    if approx_det < 0:
         return -1
-    elif det > 0:
+    elif approx_det > 0:
         return 1
     else:
         return 0
@@ -36,7 +40,9 @@ def integer_arithmetics(p, q, r):
 
 
 def floating_point_filter(p, q, r, epsilon, index):
-    det_approx = maths.approximate_determinant(p, q, r)
+    approx_det = maths.approximate_determinant(p.cartesian(),
+                                               q.cartesian(),
+                                               r.cartesian())
 
     # 3. compute measure and index
     mes_E = Measure(p, q, r).mes
@@ -46,11 +52,11 @@ def floating_point_filter(p, q, r, epsilon, index):
     upper_bound = epsilon * ind_E * mes_E
 
     # 5. determine sign(E)
-    if det_approx >= upper_bound:
+    if approx_det >= upper_bound:
         return 1
-    elif det_approx <= -upper_bound:
+    elif approx_det <= -upper_bound:
         return -1
-    elif upper_bound < 1 and maths.is_integer(det_approx):
+    elif upper_bound < 1 and maths.is_integer(approx_det):
         return 0
     else:
         return integer_arithmetics(p, q, r)
